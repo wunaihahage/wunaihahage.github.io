@@ -1,7 +1,7 @@
 # 我的电子书库
 
 单文件静态站点，部署在 [GitHub Pages](https://pages.github.com/)，免费 24 小时常驻。
-仓库：`wunaihahage.github.io`（公共）
+仓库：[`wunaihahage.github.io`](https://wunaihahage.github.io/)（公共）
 
 ## 线上地址
 
