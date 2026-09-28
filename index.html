@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我的电子书库 · 人生指南与日本经济史</title>
+<meta name="description" content="个人电子书库：两本可离线阅读的单文件电子书。">
+<meta name="theme-color" content="#3451b2" media="(prefers-color-scheme: light)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233451b2'/%3E%3Ctext x='32' y='45' font-size='34' text-anchor='middle' fill='white' font-family='serif'%3E书%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#fff;--bg-alt:#f6f6f7;--bg-soft:#f6f6f7;--bg-mute:#f1f1f2;--bg-elv:#fff;--divider:#e2e2e3;
+--t1:rgba(60,60,67,1);--t2:rgba(60,60,67,.78);--t3:rgba(60,60,67,.56);
+--brand-1:#3451b2;--brand-2:#3a5ccc;--brand-3:#5672cd;--brand-soft:rgba(100,108,255,.14);
+--green-soft:rgba(16,185,129,.14);--green-1:#18794e;
+--shadow:0 1px 2px rgba(0,0,0,.05),0 8px 24px rgba(0,0,0,.06);
+--font:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+--nav-h:64px;color-scheme:light}
+html.dark{--bg:#1b1b1f;--bg-alt:#161618;--bg-soft:#202127;--bg-mute:#2b2b2f;--bg-elv:#202127;--divider:#2e2e32;
+--t1:rgba(255,255,245,.86);--t2:rgba(235,235,245,.6);--t3:rgba(235,235,245,.38);
+--brand-1:#a8b1ff;--brand-2:#5c73e7;--brand-3:#3e63dd;--brand-soft:rgba(100,108,255,.16);
+--green-soft:rgba(16,185,129,.16);--green-1:#3dd68c;--shadow:0 1px 2px rgba(0,0,0,.4);color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--t1);font:15px/1.8 var(--font);-webkit-font-smoothing:antialiased}
+a{color:var(--brand-1);text-decoration:none}a:hover{text-decoration:underline}
+button{font:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--brand-1);outline-offset:2px;border-radius:4px}
+[hidden]{display:none!important}
+.nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:30;background:var(--bg);border-bottom:1px solid var(--divider);display:flex;align-items:center;gap:14px;padding:0 22px}
+.title{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px;white-space:nowrap}
+.logo{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--brand-3),var(--brand-1));display:grid;place-items:center;color:#fff;font-size:13px;font-weight:700}
+.switch{position:relative;width:40px;height:22px;border-radius:11px;border:1px solid var(--divider);background:var(--bg-mute);margin-left:auto}
+.switch .knob{position:absolute;top:1px;left:1px;width:18px;height:18px;border-radius:50%;background:var(--bg-elv);box-shadow:var(--shadow);transition:transform .25s}
+html.dark .switch .knob{transform:translateX(18px)}
+.wrap{max-width:1040px;margin:0 auto;padding:calc(var(--nav-h) + 56px) 22px 80px}
+.hero{margin-bottom:40px}
+.hero h1{font-size:34px;line-height:44px;font-weight:700;letter-spacing:-.02em;margin:0 0 12px}
+.hero p{margin:0;color:var(--t2);font-size:16px;max-width:60ch}
+.hero .stat{color:var(--t3);font-size:14px;margin-top:12px}
+.hero .stat b{color:var(--brand-1);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.card{display:block;background:var(--bg-elv);border:1px solid var(--divider);border-radius:14px;padding:22px 22px 20px;transition:transform .2s,border-color .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);border-color:var(--brand-3);box-shadow:var(--shadow);text-decoration:none}
+.cover{height:120px;border-radius:10px;margin-bottom:16px;display:grid;place-items:center;font-size:40px;font-weight:700;color:#fff;position:relative;overflow:hidden}
+.cover.v1{background:linear-gradient(135deg,#3451b2,#5672cd)}
+.cover.v2{background:linear-gradient(135deg,#18794e,#3dd68c);color:#04210f}
+.cover.v3{background:linear-gradient(135deg,#7a3fd4,#a878f0)}
+.cover.v4{background:linear-gradient(135deg,#c23a5a,#f06a86)}
+.cover .tag{position:absolute;top:10px;left:12px;font-size:11px;font-weight:600;background:rgba(255,255,255,.22);padding:2px 8px;border-radius:999px;letter-spacing:.02em}
+.card h2{font-size:20px;line-height:30px;font-weight:600;letter-spacing:-.01em;margin:0 0 8px;color:var(--t1)}
+.card .sub{font-size:14px;color:var(--t2);margin:0 0 14px;min-height:44px}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;font-weight:500;color:var(--t2);background:var(--bg-soft);border:1px solid var(--divider);border-radius:999px;padding:2px 10px}
+.chip.on{color:var(--green-1);background:var(--green-soft);border-color:transparent}
+.go{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:14px;font-weight:600;color:var(--brand-1)}
+.card:hover .go{gap:10px}
+.foot{margin-top:44px;padding-top:20px;border-top:1px solid var(--divider);color:var(--t3);font-size:13px;line-height:1.7}
+@media (max-width:760px){.grid{grid-template-columns:1fr}.hero h1{font-size:26px;line-height:36px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+html[data-theme="indigo"]{--bg:#dde5fb;--bg-alt:#d5dff9;--bg-soft:#d5dff9;--bg-mute:#cbd7f8;--bg-elv:#ffffff;--divider:#b9c9f2;--t1:rgba(0,0,0,.92);--t2:rgba(0,0,0,.70);--t3:rgba(0,0,0,.50)}
+html[data-theme="indigo"].dark{--bg:#14182a;--bg-alt:#101322;--bg-soft:#1a1f33;--bg-mute:#232a42;--bg-elv:#1a1f33;--divider:#2e3752;--t1:rgba(255,255,255,.92);--t2:rgba(255,255,255,.70);--t3:rgba(255,255,255,.48)}
+html[data-theme="green"]{--bg:#d9f2e3;--bg-alt:#cfeedd;--bg-soft:#cfeedd;--bg-mute:#c4e9d5;--bg-elv:#ffffff;--divider:#a9dcc2;--t1:rgba(0,0,0,.92);--t2:rgba(0,0,0,.70);--t3:rgba(0,0,0,.50)}
+html[data-theme="green"].dark{--bg:#0f2118;--bg-alt:#0b1a12;--bg-soft:#14291e;--bg-mute:#1c3628;--bg-elv:#14291e;--divider:#26442f;--t1:rgba(255,255,255,.92);--t2:rgba(255,255,255,.70);--t3:rgba(255,255,255,.48)}
+html[data-theme="amber"]{--bg:#fbeecb;--bg-alt:#f8e9bd;--bg-soft:#f8e9bd;--bg-mute:#f4e2ab;--bg-elv:#fffdf8;--divider:#e6cf90;--t1:rgba(0,0,0,.92);--t2:rgba(0,0,0,.70);--t3:rgba(0,0,0,.50)}
+html[data-theme="amber"].dark{--bg:#221d12;--bg-alt:#1a160d;--bg-soft:#2b2416;--bg-mute:#38301d;--bg-elv:#2b2416;--divider:#4a3f26;--t1:rgba(255,255,255,.92);--t2:rgba(255,255,255,.70);--t3:rgba(255,255,255,.48)}
+html[data-theme="rose"]{--bg:#fbdfe6;--bg-alt:#f9d5de;--bg-soft:#f9d5de;--bg-mute:#f6c8d5;--bg-elv:#ffffff;--divider:#eeadc0;--t1:rgba(0,0,0,.92);--t2:rgba(0,0,0,.70);--t3:rgba(0,0,0,.50)}
+html[data-theme="rose"].dark{--bg:#24131a;--bg-alt:#1c0e14;--bg-soft:#2e1a22;--bg-mute:#3c2330;--bg-elv:#2e1a22;--divider:#502e3f;--t1:rgba(255,255,255,.92);--t2:rgba(255,255,255,.70);--t3:rgba(255,255,255,.48)}
+html[data-theme="teal"]{--bg:#d6f1ee;--bg-alt:#caebe7;--bg-soft:#caebe7;--bg-mute:#bce4df;--bg-elv:#ffffff;--divider:#98d4cd;--t1:rgba(0,0,0,.92);--t2:rgba(0,0,0,.70);--t3:rgba(0,0,0,.50)}
+html[data-theme="teal"].dark{--bg:#0e211f;--bg-alt:#0a1a18;--bg-soft:#132a28;--bg-mute:#1b3835;--bg-elv:#132a28;--divider:#264b47;--t1:rgba(255,255,255,.92);--t2:rgba(255,255,255,.70);--t3:rgba(255,255,255,.48)}
+html[data-theme="purple"]{--bg:#e9defc;--bg-alt:#e2d4fa;--bg-soft:#e2d4fa;--bg-mute:#d9c7f8;--bg-elv:#ffffff;--divider:#c3a8f0;--t1:rgba(0,0,0,.92);--t2:rgba(0,0,0,.70);--t3:rgba(0,0,0,.50)}
+html[data-theme="purple"].dark{--bg:#1b1330;--bg-alt:#150e26;--bg-soft:#241a3e;--bg-mute:#322452;--bg-elv:#241a3e;--divider:#443167;--t1:rgba(255,255,255,.92);--t2:rgba(255,255,255,.70);--t3:rgba(255,255,255,.48)}
+html[data-theme="graphite"]{--bg:#e3e5e9;--bg-alt:#dcdfe4;--bg-soft:#dcdfe4;--bg-mute:#d3d7dd;--bg-elv:#ffffff;--divider:#c0c5cd;--t1:rgba(0,0,0,.92);--t2:rgba(0,0,0,.70);--t3:rgba(0,0,0,.50)}
+html[data-theme="graphite"].dark{--bg:#171719;--bg-alt:#131315;--bg-soft:#1f1f22;--bg-mute:#292a2e;--bg-elv:#1f1f22;--divider:#35363c;--t1:rgba(255,255,255,.92);--t2:rgba(255,255,255,.70);--t3:rgba(255,255,255,.48)}
+html[data-theme="paper"]{--bg:#f0e5cd;--bg-alt:#ebdec0;--bg-soft:#ebdec0;--bg-mute:#e4d4ae;--bg-elv:#fffdf8;--divider:#d3bd8c;--t1:rgba(0,0,0,.92);--t2:rgba(0,0,0,.70);--t3:rgba(0,0,0,.50)}
+html[data-theme="paper"].dark{--bg:#221c11;--bg-alt:#1a150d;--bg-soft:#2b2416;--bg-mute:#38301d;--bg-elv:#2b2416;--divider:#4a3f26;--t1:rgba(255,255,255,.92);--t2:rgba(255,255,255,.70);--t3:rgba(255,255,255,.48)}
+
+/* 背景配色切换器(可收缩) */
+.themes{position:fixed;right:16px;bottom:16px;z-index:80}
+.themes-panel{background:var(--bg-elv);border:1px solid var(--divider);border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.14);padding:8px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;max-width:calc(100vw - 32px)}
+.themes-panel .tl{font-size:11px;color:var(--t3);font-weight:600;margin-right:2px}
+.theme-dot{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid var(--divider);padding:0;transition:transform .15s;flex:none}
+.theme-dot:hover{transform:scale(1.18)}
+.theme-dot.on{border-color:var(--brand-1);box-shadow:0 0 0 2px var(--bg-elv),0 0 0 3px var(--brand-1)}
+.themes .sep{width:1px;height:18px;background:var(--divider)}
+.themes .dm,.themes .col{width:24px;height:24px;border-radius:7px;cursor:pointer;border:1px solid var(--divider);background:var(--bg-mute);display:grid;place-items:center;color:var(--t2)}
+.themes .dm svg,.themes .col svg{width:14px;height:14px;fill:currentColor}
+.themes .col svg{transition:transform .2s}
+.themes .dm:hover,.themes .col:hover{border-color:var(--brand-1);color:var(--brand-1)}
+.themes.min .themes-panel{display:none}
+.themes.min .col svg{transform:rotate(180deg)}
+.themes .fab{display:none;width:48px;height:48px;border-radius:50%;background:var(--bg-elv);border:1px solid var(--divider);box-shadow:0 4px 16px rgba(0,0,0,.18);place-items:center;cursor:pointer;color:var(--t1)}
+.themes.min .fab{display:grid}
+.themes .fab svg{width:22px;height:22px;fill:currentColor}
+.themes .fab:hover{border-color:var(--brand-1);color:var(--brand-1)}
+
+/* 统一配色后,隐藏各页原有的明暗开关 */
+.nav .switch,.nav-r .switch{display:none!important}
+
+</style>
+<script data-theme-boot>(function(){try{var r=document.documentElement;var c=localStorage.getItem('bk-theme')||'indigo';r.setAttribute('data-theme',c);if(localStorage.getItem('bk-dark')==='1')r.classList.add('dark');}catch(e){}})();</script>
+</head>
+<body>
+<div class="themes" id="themes" role="group" aria-label="背景配色">
+<button class="fab" id="fab" aria-label="展开配色"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.38 0 2.5-1.12 2.5-2.5 0-.61-.23-1.16-.6-1.59-.36-.43-.59-.98-.59-1.59V14.4a1.6 1.6 0 0 1 1.6-1.6h1.4c1.38 0 2.5-1.12 2.5-2.5V10c0-4.42-3.58-8-8-8z"/></svg></button>
+<div class="themes-panel">
+<span class="tl">背景</span>
+<button class="theme-dot" data-t="indigo" style="background:#cbd7f8" title="靛蓝背景" aria-label="靛蓝背景"></button><button class="theme-dot" data-t="green" style="background:#c4e9d5" title="青绿背景" aria-label="青绿背景"></button><button class="theme-dot" data-t="amber" style="background:#f4e2ab" title="琥珀背景" aria-label="琥珀背景"></button><button class="theme-dot" data-t="rose" style="background:#f6c8d5" title="玫红背景" aria-label="玫红背景"></button><button class="theme-dot" data-t="teal" style="background:#bce4df" title="青碧背景" aria-label="青碧背景"></button><button class="theme-dot" data-t="purple" style="background:#d9c7f8" title="紫罗兰背景" aria-label="紫罗兰背景"></button><button class="theme-dot" data-t="graphite" style="background:#d3d7dd" title="石墨背景" aria-label="石墨背景"></button><button class="theme-dot" data-t="paper" style="background:#e4d4ae" title="米纸背景" aria-label="米纸背景"></button>
+<span class="sep"></span>
+<button class="dm" id="dmBtn" aria-label="明暗切换" title="浅色 / 深色"><svg viewBox="0 0 24 24"><path d="M12.3 4.5c-.2-.6-.8-1-1.4-.8-2.6.6-4.5 3-4.5 5.8 0 3.2 2.6 5.8 5.8 5.8 2.8 0 5.2-1.9 5.8-4.5.2-.6-.2-1.2-.8-1.4-.6-.2-1.3.1-1.5.7-.4 1.4-1.7 2.4-3.3 2.4-1.9 0-3.4-1.5-3.4-3.4 0-1.6 1.1-3 2.6-3.4.6-.2 1-.9.8-1.4z"/></svg></button>
+<button class="col" id="col" aria-label="收起配色"><svg viewBox="0 0 24 24"><path d="M12 4l-6 8h4v8h4v-8h4z"/></svg></button>
+</div>
+</div>
+<header class="nav">
+<a class="title" href="#"><span class="logo">书</span><span>我的电子书库</span></a>
+</header>
+<main class="wrap">
+<div class="hero">
+<h1>我的电子书库</h1>
+<p>四本可离线阅读的单文件电子书：循证人生清单、日本 40 年经济史、张磊价值投资方法论，以及国家兴衰的制度之问。点卡片进入。</p>
+<div class="stat">共 <b>4</b> 本 · 循证清单 + 长文经济史 + 投资方法论 + 制度研究 · 全程单文件，无网络也能看</div>
+</div>
+<div class="grid">
+<a class="card" href="how-to-live-better.html">
+<div class="cover v1"><span class="tag">循证清单</span>✓</div>
+<h2>高性价比人生指南</h2>
+<p class="sub">608 条建议，覆盖长寿防病、意外急救、省钱理财、防骗与法律红线、失业兜底、创业风险、恋爱婚育、出国与技能。每条标注成本、收益、证据等级与原始出处。</p>
+<div class="meta"><span class="chip">608 条</span><span class="chip">33 节</span><span class="chip on">在线可看</span></div>
+<span class="go">进入阅读 →</span>
+</a>
+<a class="card" href="yi-ri-wei-jian.html">
+<div class="cover v2"><span class="tag">经济史</span>日</div>
+<h2>以日为鉴 · 衰退时代生存指南</h2>
+<p class="sub">以日本泡沫破裂后 40 年周期为镜，从失业、学历贬值、考公教师、医疗崩坏到全民出海五个维度，为普通人的职业与人生提供借鉴。全文长文阅读。</p>
+<div class="meta"><span class="chip">5 篇</span><span class="chip">15 章</span><span class="chip">约 10 万字</span></div>
+<span class="go">进入阅读 →</span>
+</a>
+<a class="card" href="value.html">
+<div class="cover v3"><span class="tag">投资</span>值</div>
+<h2>价值 · 张磊</h2>
+<p class="sub">高瓴张磊的价值投资方法论：长期主义、伟大格局观与持续创造价值。从个人历程、投资哲学到创新框架，做时间的朋友。</p>
+<div class="meta"><span class="chip">374 页</span><span class="chip">约 22 万字</span><span class="chip">单文件离线</span></div>
+<span class="go">进入阅读 →</span>
+</a>
+<a class="card" href="why-states-fail.html">
+<div class="cover v4"><span class="tag">制度</span>国</div>
+<h2>国家为什么会失败</h2>
+<p class="sub">Acemoglu &amp; Robinson：包容性制度与汲取性制度如何决定国家兴衰。776 页制度经济学经典，全文检索阅读。</p>
+<div class="meta"><span class="chip">776 页</span><span class="chip">约 27 万字</span><span class="chip">全文搜索</span></div>
+<span class="go">进入阅读 →</span>
+</a>
+</div>
+<footer class="foot">本页与四本书均为单文件静态站点，部署在 GitHub Pages 上免费常驻。书籍版权归原作者与出版方所有，仅供个人阅读。</footer>
+</main>
+
+<script data-theme-engine>
+(function(){
+var root=document.documentElement;
+var host=document.getElementById('themes'),fab=document.getElementById('fab'),col=document.getElementById('col');
+var dots=[].slice.call(document.querySelectorAll('.theme-dot'));
+var KNOWN={};dots.forEach(function(d){KNOWN[d.dataset.t]=1;});
+var st={c:'indigo',d:false};
+try{
+  var v=localStorage.getItem('bk-theme');v=v?String(v):'';
+  if(/-black$/.test(v))v='graphite';
+  if(KNOWN[v])st.c=v;
+  st.d=(localStorage.getItem('bk-dark')==='1');
+}catch(e){}
+function apply(){
+  root.setAttribute('data-theme',st.c);
+  root.classList.toggle('dark',st.d);
+  dots.forEach(function(d){d.classList.toggle('on',d.dataset.t===st.c);});
+  try{
+    localStorage.setItem('bk-theme',st.c);
+    localStorage.setItem('bk-dark',st.d?'1':'0');
+    localStorage.setItem('theme',st.d?'dark':'light');
+  }catch(e){}
+}
+window.bkThemeSet=function(o){if(o&&o.c&&KNOWN[o.c])st.c=o.c;if(o&&typeof o.d!=='undefined')st.d=!!o.d;apply();};
+window.bkThemeIsDark=function(){return st.d;};
+apply();
+// 点颜色 = 强制回到浅色，让背景颜色真正可见（不再被深色模式吃掉）
+dots.forEach(function(d){d.addEventListener('click',function(){st.c=d.dataset.t;st.d=false;apply();});});
+var dm=document.getElementById('dmBtn');
+if(dm)dm.addEventListener('click',function(){st.d=!st.d;apply();});
+function setMin(m){if(!host)return;host.classList.toggle('min',!!m);try{localStorage.setItem('bk-themes-min',m?'1':'0');}catch(e){}}
+if(col)col.addEventListener('click',function(){setMin(true);});
+if(fab)fab.addEventListener('click',function(){setMin(false);});
+try{if(localStorage.getItem('bk-themes-min')==='1'&&host)host.classList.add('min');}catch(e){}
+})();
+</script>
+</body>
+</html>
